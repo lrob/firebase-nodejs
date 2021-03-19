@@ -3,17 +3,10 @@ version: "3"
 services:
     server:
       build: ./server/
-      networks: 
-        - firebase-nodejs-net
       ports:
         - 4000:4000
+
     app:
       build: ./frontend/
       ports:
         - 3000:3000
-      networks: 
-        - firebase-nodejs-net
-
-
-networks: 
-  firebase-nodejs-net:
