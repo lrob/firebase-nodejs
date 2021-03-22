@@ -1,0 +1,41 @@
+.App {
+    background-color: #282c34;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+  }
+  
+  .login-button {
+    width: 200px;
+    height: 60px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #ea4335;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0.8;
+  }
+  
+  .login-button:hover {
+    opacity: 1;
+  }
+  
+  .booklist {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .image {
+    width: 100px;
+    height: 150px;
+  }
+  
+  h3,
+  h1 {
+    color: white;
+  }
