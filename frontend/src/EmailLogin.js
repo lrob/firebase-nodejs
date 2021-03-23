@@ -53,10 +53,10 @@ class EmailLogin extends React.Component{
         return(
             <form onSubmit={this.handleSubmit}>
             <div>
-                Login
+                <h3>Login with email</h3>
             </div>
             <div>
-                <label for="user">Enter your email:</label>
+                <label for="user">Enter your email: </label>
                 <input 
                     name="email"
                     type="email" 
@@ -67,7 +67,7 @@ class EmailLogin extends React.Component{
                 />
             </div>
             <div>
-                <label for="pwd">Enter your password</label>
+                <label for="pwd">Enter your password: </label>
                 <input
                     name="password"
                     type="password"

@@ -25,7 +25,8 @@ const books = [
   },
 ];
 
-app.use("/", authMiddleware);
+//app.use("/", authMiddleware);
+app.use(authMiddleware);
 
 app.get("/books", (request, response) => {
   return response.send({ books });

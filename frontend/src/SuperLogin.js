@@ -3,6 +3,7 @@ import React from "react";
 import Login from "./Login";
 import EmailRegister from "./EmailRegister";
 import EmailLogin from "./EmailLogin";
+import ResetPassword from "./ResetPassword"
 
 export default function SuperLogin() {
     return(
@@ -15,6 +16,9 @@ export default function SuperLogin() {
             </p>
             <p>
                 <EmailLogin />
+            </p>
+            <p>
+                <ResetPassword />
             </p>
         </div>
     );

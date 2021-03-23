@@ -1,6 +1,6 @@
 # firebase-nodejs
 
-This repository implements the firebase authentication example shown in [this tutorial](https://dev.to/betiol/how-to-handle-authentication-on-node-js-using-firebase-5ajn). 
+This repository implements the firebase authentication example shown in [this tutorial](https://dev.to/betiol/how-to-handle-authentication-on-node-js-using-firebase-5ajn). The original example only allows Google authentication, this example has been enriched with the Email/Password authentication method.
 In order to run the example you need to install `Docker` and `docker-compose` and take the following steps:
 
 * Clone this respository
