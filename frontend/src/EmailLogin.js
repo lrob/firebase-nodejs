@@ -1,6 +1,8 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
+import { auth } from "./firebase";
 
-export default class EmailLogin extends React.Component{
+class EmailLogin extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -25,9 +27,26 @@ export default class EmailLogin extends React.Component{
         //this.setState({email: event.target.value})        
     }
     
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
-        alert('You have submitted the form with email ' + this.state.email + ' and pwd ' + this.state.password)
+
+        await auth.createUserWithEmailAndPassword(this.state.email, this.state.password).then(
+            async (result) => {
+                //3 - pick the result and store the token
+                const token = await auth?.currentUser?.getIdToken(true);
+                //4 - check if have token in the current user
+                if (token) {
+                  //5 - put the token at localStorage (We'll use this to make requests)
+                  localStorage.setItem("@token", token);
+                  //6 - navigate user to the book list
+                  this.props.history.push("/book-list");
+                }
+              },
+              function (error) {
+                console.log(error);
+                alert(error)
+              }
+        );
     }
 
     render() {
@@ -65,4 +84,6 @@ export default class EmailLogin extends React.Component{
         )
     }
 }
+
+export default withRouter(EmailLogin);
 
