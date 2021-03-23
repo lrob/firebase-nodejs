@@ -17,14 +17,11 @@ function authMiddleware(request, response, next) {
     .verifyIdToken(token)
     .then((decodeToken) => {
       const uid = decodeToken.uid;
-      console.log("user id: " + uid)
       firebase
         .auth()
         .getUser(uid)
         .then((userRecord) => {
-          console.log("email verified: " + userRecord.emailVerified)
           if (!userRecord.emailVerified){
-            console.log("email is not verified");
             //throw 'prova';
             return response.status(401).json({ message: "Email is not verified" });
           }

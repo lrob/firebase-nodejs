@@ -1,10 +1,9 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Login from "./Login";
 import BookList from "./BookList";
 import CreateUser from "./CreateUser"
-import EmailLogin from "./EmailLogin"
+import SuperLogin from "./SuperLogin"
 
 export default function App() {
   return (
@@ -12,12 +11,7 @@ export default function App() {
       <BrowserRouter>
         <Switch>
           <Route path={"/login"}>
-            <div>
-            <Login />
-            </div>
-            <div>
-            <EmailLogin />
-            </div>
+            <SuperLogin />
           </Route>
           <Route path={"/book-list"}>
             <BookList />
