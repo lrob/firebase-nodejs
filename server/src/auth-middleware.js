@@ -11,10 +11,28 @@ function authMiddleware(request, response, next) {
   }
 
   const token = headerToken.split(" ")[1];
+
   firebase
     .auth()
     .verifyIdToken(token)
-    .then(() => next())
+    .then((decodeToken) => {
+      const uid = decodeToken.uid;
+      console.log("user id: " + uid)
+      firebase
+        .auth()
+        .getUser(uid)
+        .then((userRecord) => {
+          console.log("email verified: " + userRecord.emailVerified)
+          if (!userRecord.emailVerified){
+            console.log("email is not verified");
+            //throw 'prova';
+            return response.status(401).json({ message: "No token provided" });
+          }
+
+          next();
+        })
+        .catch(() => response.send({ message: "Could not authorize" }).status(403));
+    })
     .catch(() => response.send({ message: "Could not authorize" }).status(403));
 }
 

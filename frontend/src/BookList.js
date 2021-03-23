@@ -1,27 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-export default function BookList() {
-  //create state to store our book list
-  const [books, setBooks] = useState([]);
 
-  useEffect(() => {
-    async function loadBooks() {
-      //fetch the book list
-      const request = await fetch("http://localhost:4000/books", {
-        //use the authorization
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("@token"),
-        },
-      });
-
-      const allBooks = await request.json();
-      //set the book list on state
-      setBooks(allBooks.books);
-    }
-    //invoke the function
-    loadBooks();
-  }, []);
-
+function LoggedIn(props){
+  const books = props.books;
+  
   return (
     <div className="container">
       <h1>BookList</h1>
@@ -34,4 +16,46 @@ export default function BookList() {
       ))}
     </div>
   );
+}
+
+function NotLoggedIn(props){
+  return (
+    <div>
+      <label>You cannot access this page</label>
+    </div>
+  );
+}
+
+export default function BookList() {
+  //create state to store our book list
+  const [books, setBooks] = useState([]);
+  const [status, setStatus] = useState([]);
+
+  useEffect(() => {
+    async function loadBooks() {
+      //fetch the book list
+      
+      const request = await fetch("http://localhost:4000/books", {
+        //use the authorization
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("@token"),
+        },
+      });
+
+      setStatus(request.status)
+      const allBooks = await request.json();
+      //set the book list on state
+      setBooks(allBooks.books);
+    }
+    //invoke the function
+    loadBooks();
+  }, []);
+
+
+  
+  if (status == 200){
+    return <LoggedIn books={books} />
+  } else {
+    return <NotLoggedIn />
+  }
 }
