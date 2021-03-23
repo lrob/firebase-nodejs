@@ -26,14 +26,14 @@ function authMiddleware(request, response, next) {
           if (!userRecord.emailVerified){
             console.log("email is not verified");
             //throw 'prova';
-            return response.status(401).json({ message: "No token provided" });
+            return response.status(401).json({ message: "Email is not verified" });
           }
 
           next();
         })
-        .catch(() => response.send({ message: "Could not authorize" }).status(403));
+        .catch(() => response.status(403).json({ message: "Could not authorize" }));
     })
-    .catch(() => response.send({ message: "Could not authorize" }).status(403));
+    .catch(() => response.status(403).json({ message: "Could not authorize" }));
 }
 
 module.exports = authMiddleware;

@@ -19,9 +19,10 @@ function LoggedIn(props){
 }
 
 function NotLoggedIn(props){
+  const errorMessage = props.message
   return (
     <div>
-      <label>You cannot access this page</label>
+      <label>You cannot access this page: {errorMessage}</label>
     </div>
   );
 }
@@ -30,6 +31,7 @@ export default function BookList() {
   //create state to store our book list
   const [books, setBooks] = useState([]);
   const [status, setStatus] = useState([]);
+  const [message, setMessage] = useState([]);
 
   useEffect(() => {
     async function loadBooks() {
@@ -43,9 +45,13 @@ export default function BookList() {
       });
 
       setStatus(request.status)
-      const allBooks = await request.json();
-      //set the book list on state
-      setBooks(allBooks.books);
+      const json = await request.json()
+      if (request.status !== 200) {
+        setMessage(json.message)
+      } else {
+        //set the book list on state
+        setBooks(json.books);
+      }
     }
     //invoke the function
     loadBooks();
@@ -53,9 +59,9 @@ export default function BookList() {
 
 
   
-  if (status == 200){
+  if (status === 200){
     return <LoggedIn books={books} />
   } else {
-    return <NotLoggedIn />
+    return <NotLoggedIn message={message}/>
   }
 }
