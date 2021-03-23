@@ -11,11 +11,26 @@ function authMiddleware(request, response, next) {
   }
 
   const token = headerToken.split(" ")[1];
+
   firebase
     .auth()
     .verifyIdToken(token)
-    .then(() => next())
-    .catch(() => response.send({ message: "Could not authorize" }).status(403));
+    .then((decodeToken) => {
+      const uid = decodeToken.uid;
+      firebase
+        .auth()
+        .getUser(uid)
+        .then((userRecord) => {
+          if (!userRecord.emailVerified){
+            //throw 'prova';
+            return response.status(401).json({ message: "Email is not verified" });
+          }
+
+          next();
+        })
+        .catch(() => response.status(403).json({ message: "Could not authorize" }));
+    })
+    .catch(() => response.status(403).json({ message: "Could not authorize" }));
 }
 
 module.exports = authMiddleware;

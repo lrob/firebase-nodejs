@@ -28,6 +28,7 @@ export default function Login() {
   }
   return (
     <div>
+      <h3>Login with Google</h3>
       <button onClick={googleLogin} className="login-button">
         GOOGLE
       </button>
